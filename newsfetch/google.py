@@ -12,12 +12,16 @@ class GoogleSearchNewsURLExtractor:
 
         # Prepare the search term for Google
         self.search_term = f"'{self.keyword}' site:{self.news_domain}"
-        search_url = f"https://www.google.com/search?q={"+".join(self.search_term.split())}"
+        search_url = (
+            f"https://www.google.com/search?q={"+".join(self.search_term.split())}"
+        )
 
         # Set up the web driver options
         options = webdriver.ChromeOptions()
         options.add_argument("--headless")  # Run in headless mode (no UI)
-        options.add_argument("--ignore-certificate-errors")  # Ignore SSL certificate errors
+        options.add_argument(
+            "--ignore-certificate-errors"
+        )  # Ignore SSL certificate errors
         options.add_argument("--incognito")  # Open in incognito mode
 
         # Start the web driver
@@ -31,7 +35,9 @@ class GoogleSearchNewsURLExtractor:
 
             # Filter out unwanted URLs (e.g., PDFs or XMLs) and remove duplicates
             url_list = list(dict.fromkeys(url_list))
-            self.urls = [url for url in url_list if ".pdf" not in url and ".xml" not in url]
+            self.urls = [
+                url for url in url_list if ".pdf" not in url and ".xml" not in url
+            ]
 
         except Exception as e:
             raise ValueError(f"An error occurred during the search: {e}")

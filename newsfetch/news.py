@@ -2,6 +2,7 @@ from newsfetch.newspaper_handler import ArticleHandler
 from newsfetch.news_please_handler import NewsPleaseHandler
 from newsfetch.soup_handler import SoupHandler
 
+
 class Newspaper:
     """Class to scrape and extract information from a news article."""
 
@@ -43,7 +44,11 @@ class Newspaper:
 
     def __validate_initialization(self):
         """Raise an error if no valid data is found."""
-        if not (self.__news_please.is_valid() or self.__article.is_valid() or self.__soup.is_valid()):
+        if not (
+            self.__news_please.is_valid()
+            or self.__article.is_valid()
+            or self.__soup.is_valid()
+        ):
             raise ValueError("Sorry, the page you are looking for doesn't exist.")
 
     @staticmethod
@@ -57,11 +62,17 @@ class Newspaper:
 
     def __extract_authors(self):
         """Extract the authors from the article or the news source."""
-        return self.__extract(self.__news_please.authors, self.__article.authors, self.__soup.authors)
+        return self.__extract(
+            self.__news_please.authors, self.__article.authors, self.__soup.authors
+        )
 
     def __extract_date_publish(self):
         """Extract the publication date of the article."""
-        return self.__extract(self.__news_please.date_publish, self.__article.date_publish, self.__soup.date_publish)
+        return self.__extract(
+            self.__news_please.date_publish,
+            self.__article.date_publish,
+            self.__soup.date_publish,
+        )
 
     def __extract_date_modify(self):
         """Extract the modification date of the article."""
@@ -148,5 +159,5 @@ class Newspaper:
             "keyword": self.keywords,
             "title_page": self.title_page,
             "title_rss": self.title_rss,
-            "url": self.url
+            "url": self.url,
         }

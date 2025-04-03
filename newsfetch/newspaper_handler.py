@@ -42,7 +42,9 @@ class ArticleHandler:
     @property
     def date_publish(self):
         """Return publication date from the Article instance."""
-        return self.__article.meta_data.get("published_time") if self.is_valid() else None
+        return (
+            self.__article.meta_data.get("published_time") if self.is_valid() else None
+        )
 
     @property
     def keywords(self):
@@ -61,7 +63,11 @@ class ArticleHandler:
     def __process_keywords(keywords, max_keywords=None):
         """Process keywords to remove duplicates and limit the number."""
         unique_keywords = list(set(keywords))
-        return unique_keywords[:max_keywords] if max_keywords is not None else unique_keywords
+        return (
+            unique_keywords[:max_keywords]
+            if max_keywords is not None
+            else unique_keywords
+        )
 
     @property
     def summary(self):
@@ -82,7 +88,11 @@ class ArticleHandler:
     @property
     def publication(self):
         """Return publication name from the Article instance."""
-        return self.__article.meta_data.get("og", {}).get("site_name") if self.is_valid() else None
+        return (
+            self.__article.meta_data.get("og", {}).get("site_name")
+            if self.is_valid()
+            else None
+        )
 
     @property
     def category(self):
@@ -90,9 +100,11 @@ class ArticleHandler:
         if not self.is_valid():
             return None
 
-        return (self.__article.meta_data.get("category") or
-                self.__article.meta_data.get("section") or
-                self.__article.meta_data.get("article", {}).get("section")) or None
+        return (
+            self.__article.meta_data.get("category")
+            or self.__article.meta_data.get("section")
+            or self.__article.meta_data.get("article", {}).get("section")
+        ) or None
 
     @property
     def headline(self):

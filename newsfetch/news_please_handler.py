@@ -9,7 +9,9 @@ class NewsPleaseHandler:
 
     def __init__(self, url: str):
         self.url = url
-        self.__news_please = self.__safe_execute(lambda: NewsPlease.from_url(self.url, timeout=6))
+        self.__news_please = self.__safe_execute(
+            lambda: NewsPlease.from_url(self.url, timeout=6)
+        )
 
     @staticmethod
     def __safe_execute(func):
@@ -77,7 +79,11 @@ class NewsPleaseHandler:
     @property
     def article(self) -> str:
         """Return cleaned article text from the NewsPlease instance."""
-        return unicode(clean_text(self.__news_please.maintext)) if self.is_valid() else None
+        return (
+            unicode(clean_text(self.__news_please.maintext))
+            if self.is_valid()
+            else None
+        )
 
     @property
     def source_domain(self) -> str:

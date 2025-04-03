@@ -9,7 +9,9 @@ class SoupHandler:
     def __init__(self, url: str):
         """Initialize the SoupHandler with a given URL."""
         self.url = url
-        self.__soup = self.__safe_execute(lambda: BeautifulSoup(get(self.url).text, "lxml"))
+        self.__soup = self.__safe_execute(
+            lambda: BeautifulSoup(get(self.url).text, "lxml")
+        )
 
     @staticmethod
     def __safe_execute(func):
@@ -26,7 +28,9 @@ class SoupHandler:
     def extract_metadata(self, metadata_type: str):
         """Extract specified metadata from the HTML soup ("author", "date", "category", or "publisher")."""
         if metadata_type not in ["author", "date", "category", "publisher"]:
-            raise ValueError("metadata_type must be 'author', 'date', 'category', or 'publisher'.")
+            raise ValueError(
+                "metadata_type must be 'author', 'date', 'category', or 'publisher'."
+            )
 
         if not self.is_valid():
             return "N/A"  # Return if the soup is not valid
@@ -87,7 +91,9 @@ class SoupHandler:
             elif isinstance(meta["author"], str):
                 authors = [meta["author"]]
 
-        return authors if authors else ["N/A"]  # Return a list, default to "N/A" if empty
+        return (
+            authors if authors else ["N/A"]
+        )  # Return a list, default to "N/A" if empty
 
     @staticmethod
     def __extract_date(meta):

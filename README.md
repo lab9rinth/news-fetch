@@ -2,6 +2,90 @@
 [![License](https://img.shields.io/pypi/l/news-fetch.svg?style=flat-square)](https://pypi.python.org/pypi/news-fetch/)
 [![Documentation Status](https://readthedocs.org/projects/pip/badge/?version=latest&style=flat-square)](https://santhoshse7en.github.io/news-fetch_doc)
 
+# News Media Analysis
+
+A Django web application that analyzes news articles from BBC News and DD News. The application extracts and displays article content, metadata, and provides summarization capabilities.
+
+## Features
+
+- Article content extraction from BBC News and DD News
+- Metadata analysis (title, author, category, date, word count, etc.)
+- Clean and modern user interface
+- Article summarization (coming soon)
+- Responsive design
+
+## Technologies Used
+
+- Python 3.x
+- Django 5.2
+- BeautifulSoup4
+- Requests
+- HTML/CSS
+- JavaScript (Vanilla)
+
+## Installation
+
+1. Clone the repository:
+```bash
+git clone https://github.com/YOUR_USERNAME/news-media-analysis.git
+cd news-media-analysis
+```
+
+2. Create a virtual environment and activate it:
+```bash
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+```
+
+3. Install dependencies:
+```bash
+pip install -r requirements.txt
+```
+
+4. Run migrations:
+```bash
+python manage.py migrate
+```
+
+5. Start the development server:
+```bash
+python manage.py runserver
+```
+
+6. Visit http://127.0.0.1:8000/ in your web browser
+
+## Usage
+
+1. Open the application in your web browser
+2. Paste a URL from BBC News or DD News
+3. Click "Analyze Article" or press Enter
+4. View the extracted content and metadata
+5. Switch between Content and Summary tabs
+
+## Contributing
+
+1. Fork the repository
+2. Create a new branch (`git checkout -b feature/improvement`)
+3. Make your changes
+4. Commit your changes (`git commit -am 'Add new feature'`)
+5. Push to the branch (`git push origin feature/improvement`)
+6. Create a Pull Request
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Authors
+
+- Your Name (@YOUR_USERNAME)
+
+## Acknowledgments
+
+- BBC News for their content
+- DD News for their content
+- Django community
+- Beautiful Soup documentation
+
 # news-fetch
 
 <img align="right" height="128px" width="128px" src="https://raw.githubusercontent.com/fhamborg/news-please/master/misc/logo/logo-256.png" />
