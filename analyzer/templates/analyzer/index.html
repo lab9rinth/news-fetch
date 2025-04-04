@@ -1,21 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NEWS MEDIA ANALYSIS</title>
-   <style>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@300;700&family=Lora&display=swap');
+        
         :root {
-            --background-color: #f5f3e7; /* Aged paper beige */
-            --text-color: #2d2d2d; /* Dark gray for readability */
-            --primary-color: #4a4a4a; /* Muted dark gray for accents */
+            --background-color: #f6f1eb; /* Aged paper beige */
+            --text-color: #3a3a3a; /* Dark gray for readability */
+            --primary-color: #2f2f2f; /* Muted dark gray for accents */
             --secondary-color: #7c7c7c; /* Medium gray for subtle contrast */
+            --highlight-color: #c9a66b; /* Muted gold for small highlights */
             --border-radius: 8px;
             --box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Merriweather', serif;
             max-width: 1000px;
             margin: 0 auto;
             padding: 20px;
@@ -60,6 +63,7 @@
         .input-group {
             margin-bottom: 20px;
             display: flex;
+            position: relative;
         }
 
         input[type="text"], button {
@@ -120,11 +124,27 @@
             margin-top: 30px;
             display: none;
         }
+
+        .headline-separator {
+            height: 2px;
+            background: var(--highlight-color);
+            margin: 20px 0;
+        }
+
+        .news-box {
+            background: rgba(255, 255, 255, 0.85);
+            padding: 20px;
+            border-left: 5px solid var(--highlight-color);
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+
     </style>
 </head>
 <body>
     <div class="container">
         <h1>NEWS MEDIA ANALYSIS</h1>
+        <div class="headline-separator"></div>
         
         <div class="supported-sources">
             Supported sources: BBC News, DD News
@@ -143,6 +163,10 @@
         <div class="error" id="error">
             <div class="error-message"></div>
             <div class="error-details"></div>
+        </div>
+
+        <div class="news-box">
+            <p>"Breaking: New analysis reveals bias trends in major news outlets..."</p>
         </div>
     </div>
 
