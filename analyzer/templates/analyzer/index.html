@@ -4,13 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NEWS MEDIA ANALYSIS</title>
-    <style>
+   <style>
         :root {
-            --primary-color: #2c3e50;
-            --secondary-color: #3498db;
-            --accent-color: #e74c3c;
-            --background-color: #ecf0f1;
-            --text-color: #2c3e50;
+            --background-color: #f5f3e7; /* Aged paper beige */
+            --text-color: #2d2d2d; /* Dark gray for readability */
+            --primary-color: #4a4a4a; /* Muted dark gray for accents */
+            --secondary-color: #7c7c7c; /* Medium gray for subtle contrast */
             --border-radius: 8px;
             --box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
@@ -23,13 +22,21 @@
             background-color: var(--background-color);
             color: var(--text-color);
             line-height: 1.6;
+            background-image: url('newspaper-texture.jpg'); /* Newspaper scrap texture */
+            background-size: cover;
+            background-blend-mode: multiply;
         }
 
         .container {
-            background-color: white;
+            background: rgba(255, 255, 255, 0.9); /* Semi-transparent white for readability */
             padding: 30px;
             border-radius: var(--border-radius);
             box-shadow: var(--box-shadow);
+            transition: box-shadow 0.3s ease-in-out;
+        }
+
+        .container:hover {
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
         }
 
         h1 {
@@ -46,42 +53,45 @@
             color: var(--secondary-color);
             font-size: 1.1em;
             padding: 15px;
-            background-color: rgba(52, 152, 219, 0.1);
+            background-color: rgba(124, 124, 124, 0.1);
             border-radius: var(--border-radius);
         }
 
         .input-group {
-            margin-bottom: 30px;
+            margin-bottom: 20px;
+            display: flex;
         }
 
-        input[type="text"] {
-            width: 100%;
+        input[type="text"], button {
             padding: 15px;
             border: 2px solid #ddd;
             border-radius: var(--border-radius);
             font-size: 16px;
-            transition: border-color 0.3s ease;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            flex: 1;
+        }
+
+        input[type="text"] {
+            border-right: none;
         }
 
         input[type="text"]:focus {
             border-color: var(--secondary-color);
             outline: none;
+            box-shadow: 0 0 10px rgba(124, 124, 124, 0.5);
         }
 
         button {
-            background-color: var(--secondary-color);
+            background-color: var(--primary-color);
             color: white;
-            padding: 15px 30px;
-            border: none;
-            border-radius: var(--border-radius);
             cursor: pointer;
-            font-size: 16px;
-            width: 100%;
+            border-left: none;
+            flex: 0.3;
             transition: background-color 0.3s ease;
         }
 
         button:hover {
-            background-color: #2980b9;
+            background-color: #5a5a5a;
         }
 
         button:disabled {
@@ -97,9 +107,9 @@
         }
 
         .error {
-            color: var(--accent-color);
-            background-color: rgba(231, 76, 60, 0.1);
-            border: 1px solid rgba(231, 76, 60, 0.3);
+            color: var(--primary-color);
+            background-color: rgba(74, 74, 74, 0.1);
+            border: 1px solid rgba(74, 74, 74, 0.3);
             padding: 20px;
             margin-top: 20px;
             border-radius: var(--border-radius);
@@ -109,88 +119,6 @@
         .result {
             margin-top: 30px;
             display: none;
-        }
-
-        .result-section {
-            background-color: white;
-            padding: 25px;
-            margin-bottom: 20px;
-            border-radius: var(--border-radius);
-            box-shadow: var(--box-shadow);
-        }
-
-        .article-meta {
-            background-color: rgba(52, 152, 219, 0.1);
-            padding: 20px;
-            border-radius: var(--border-radius);
-            margin: 20px 0;
-        }
-
-        .article-meta p {
-            margin: 10px 0;
-            color: var(--primary-color);
-        }
-
-        .article-content {
-            margin-top: 30px;
-        }
-
-        .article-content h3 {
-            color: var(--primary-color);
-            margin-bottom: 15px;
-            font-size: 1.5em;
-        }
-
-        #articleContent {
-            line-height: 1.8;
-            white-space: pre-line;
-            color: var(--text-color);
-        }
-
-        .summary-section {
-            margin-top: 30px;
-            padding: 25px;
-            background-color: rgba(46, 204, 113, 0.1);
-            border-radius: var(--border-radius);
-        }
-
-        .summary-section h3 {
-            color: #27ae60;
-            margin-bottom: 15px;
-        }
-
-        #articleSummary {
-            padding: 15px;
-            background-color: white;
-            border-radius: var(--border-radius);
-            margin-top: 15px;
-        }
-
-        .tabs {
-            display: flex;
-            margin-bottom: 20px;
-            border-bottom: 2px solid #ddd;
-        }
-
-        .tab {
-            padding: 10px 20px;
-            cursor: pointer;
-            margin-right: 10px;
-            border-bottom: 2px solid transparent;
-            color: var(--text-color);
-        }
-
-        .tab.active {
-            border-bottom: 2px solid var(--secondary-color);
-            color: var(--secondary-color);
-        }
-
-        .tab-content {
-            display: none;
-        }
-
-        .tab-content.active {
-            display: block;
         }
     </style>
 </head>
@@ -204,9 +132,8 @@
         
         <div class="input-group">
             <input type="text" id="newsUrl" placeholder="Paste a BBC News or DD News article URL here..." required>
+            <button onclick="analyzeNews()" id="analyzeBtn">Analyze</button>
         </div>
-        
-        <button onclick="analyzeNews()" id="analyzeBtn">Analyze Article</button>
         
         <div class="loading" id="loading">
             <p>Analyzing article...</p>
@@ -216,41 +143,6 @@
         <div class="error" id="error">
             <div class="error-message"></div>
             <div class="error-details"></div>
-        </div>
-        
-        <div class="result" id="result">
-            <div class="tabs">
-                <div class="tab active" onclick="switchTab('content')">Article Content</div>
-                <div class="tab" onclick="switchTab('summary')">Summary</div>
-            </div>
-            
-            <div class="tab-content active" id="contentTab">
-                <div class="result-section">
-                    <h2 id="articleTitle"></h2>
-                    <div class="article-meta">
-                        <p><strong>Author:</strong> <span id="articleAuthor"></span></p>
-                        <p><strong>Category:</strong> <span id="articleCategory"></span></p>
-                        <p><strong>Publication Date:</strong> <span id="articleDate"></span></p>
-                        <p><strong>Word Count:</strong> <span id="wordCount"></span></p>
-                        <p><strong>Paragraph Count:</strong> <span id="paragraphCount"></span></p>
-                    </div>
-                    <div class="article-content">
-                        <h3>Full Article Content:</h3>
-                        <p id="articleContent"></p>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="tab-content" id="summaryTab">
-                <div class="result-section">
-                    <div class="summary-section">
-                        <h3>Article Summary</h3>
-                        <p id="articleSummary">
-                            The summary feature will be implemented soon. This will provide a concise overview of the article's key points and main ideas.
-                        </p>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 
